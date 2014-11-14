@@ -40,10 +40,21 @@ class FlxMidpointDisplacement
 	 * @param	RangeModifier			The rate at which to decrease the value range of the midpoint.
 	 * @return	A float value matrix from [0,1]
 	 * */
-	private static function generateMatrix(Columns:Int, Rows:Int, RangeModifier:Float = 0.65):Array<Array<Float>>
+	public static function generateFloatMatrix(Columns:Int, Rows:Int, RangeModifier:Float = 0.65):Array<Array<Float>>
 	{
+		var length = Rows;
+		if (length < Columns) length = Columns;
+		
+		length--;
+		length |= length >> 1;
+		length |= length >> 2;
+		length |= length >> 4;
+		length |= length >> 8;
+		length |= length >> 16;
+		length += 2;
+		
 		//Blank 2D Array
-		var matrix:Array<Array<Float>> = InitFloatMatrix(Columns, Rows);
+		var matrix:Array<Array<Float>> = InitFloatMatrix(length, length);
 		var range:Float = 1;
 		
 		//Set Values for all four corners
@@ -52,21 +63,18 @@ class FlxMidpointDisplacement
 		matrix[0][Columns-1] = Math.random() + 0.25;
 		matrix[Rows - 1][Columns - 1] = Math.random() + 0.25;
 		
-		//Calculates the amount of segments in base 2
-		var power:Int = Columns;
-		
 		//Stores largest calculated value for normalization
 		var max:Float = 0;
 		
-		var width:Float = Columns;
-		var height:Float = Rows;
+		var width:Float = length;
+		var height:Float = length;
 		
 		var i:Int = 1;
-		while (i < power)
+		while (i < length)
 		{
 			//Segment Size
-			width = Columns / i;
-			height = Rows / i;
+			width = length / i;
+			height = length / i;
 			
 			for (y in 0...i)
 			{
@@ -76,37 +84,39 @@ class FlxMidpointDisplacement
 					var left:Int = Math.floor(width * x);
 					var top:Int = Math.floor(height * y);
 					
-					//Find Midpoint
-					var xMid:Int = Math.floor(width * (x + 0.5));
-					var yMid:Int = Math.floor(height * (y + 0.5));
-					
-					//Make sure right and bottom do not go out of bounds
-					var right:Int = Math.floor(width * (x +1));
-					var bottom:Int = Math.floor(height * (y + 1));
-					
-					//Make sure right and bottom do not go out of bounds
-					if (right > Columns - 1) right = Columns - 1;
-					if (bottom > Rows - 1) bottom = Rows - 1;
-					
-					//Sets midpoint value to average of all four corners.
-					matrix[yMid][xMid] = 
-						(matrix[top][left] + 
-							matrix[bottom][left] + 
-							matrix[bottom][right] + 
-							matrix[top][right]) / 4;
-							
-					//trace ("Top: " + top + " - Left: " + left + " - Bottom: " + bottom + " - Right: " + right);
-					
-					//Adds random value to midpoint
-					matrix[yMid][xMid] += ((Math.random()-0.5) * range);
-					
-					//Set side values to average of adjacent corners
-					matrix[top][xMid] = ((matrix[top][left] + matrix[top][right]) / 2) + ((Math.random()-0.5) * range);
-					matrix[bottom][xMid] = ((matrix[bottom][left] + matrix[bottom][right]) / 2) + ((Math.random()-0.5) * range);
-					matrix[yMid][left] = ((matrix[top][left] + matrix[bottom][left]) / 2) + ((Math.random()-0.5) * range);
-					matrix[yMid][right] = ((matrix[top][right] + matrix[bottom][right]) / 2) + ((Math.random()-0.5) * range);
-					
-					max = Math.max(matrix[yMid][xMid], max);
+					if (left < Columns && top < Rows)
+					{
+						//Find Midpoint
+						var xMid:Int = Math.floor(width * (x + 0.5));
+						var yMid:Int = Math.floor(height * (y + 0.5));
+						
+						//Make sure right and bottom do not go out of bounds
+						var right:Int = Math.floor(width * (x +1));
+						var bottom:Int = Math.floor(height * (y + 1));
+						
+						//Make sure right and bottom do not go out of bounds
+						if (right > Columns - 1) right = Columns - 1;
+						if (bottom > Rows - 1) bottom = Rows - 1;
+						
+						//Sets midpoint value to average of all four corners.
+						matrix[yMid][xMid] = 
+							(matrix[top][left] + 
+								matrix[bottom][left] + 
+								matrix[bottom][right] + 
+								matrix[top][right]) / 4;
+						
+						
+						//Adds random value to midpoint
+						matrix[yMid][xMid] += ((Math.random()-0.5) * range);
+						
+						//Set side values to average of adjacent corners
+						matrix[top][xMid] = ((matrix[top][left] + matrix[top][right]) / 2) + ((Math.random()-0.5) * range);
+						matrix[bottom][xMid] = ((matrix[bottom][left] + matrix[bottom][right]) / 2) + ((Math.random()-0.5) * range);
+						matrix[yMid][left] = ((matrix[top][left] + matrix[bottom][left]) / 2) + ((Math.random()-0.5) * range);
+						matrix[yMid][right] = ((matrix[top][right] + matrix[bottom][right]) / 2) + ((Math.random()-0.5) * range);
+						
+						max = Math.max(matrix[yMid][xMid], max);
+					}
 				}
 			}
 			
@@ -127,36 +137,10 @@ class FlxMidpointDisplacement
 		return matrix;
 	}
 	
-	/**
-	 * Generates float matrix using the Worley Noise algoritm.
-	 * 
-	 * @param	Columns 				Number of columns for the matrix
-	 * @param	Rows					Number of rows for the matrix
-	 * @param	RangeModifier			The rate at which to decrease the value range of the midpoint.
-	 * @return	A float value matrix from [0,1]
-	 * */
-	public static function generateFloatMatrix(Columns:Int, Rows:Int, RangeModifier:Float = 0.65):Array<Array<Float>>
-	{
-		var length = Rows;
-		if (length < Columns) length = Columns;
-		
-		length--;
-		length |= length >> 1;
-		length |= length >> 2;
-		length |= length >> 4;
-		length |= length >> 8;
-		length |= length >> 16;
-		length += 2;
-		
-		var matrix:Array<Array<Float>> = generateMatrix(length, length, RangeModifier);
-		
-		return matrix;
-	}
-	
 	public static function generateIntMatrix(Columns:Int, Rows:Int, RangeModifier:Float = 0.65, NumLevels:Int = 2):Array<Array<Int>>
 	{
 		var matrix:Array<Array<Int>> = InitIntMatrix(Columns, Rows);
-		var map:Array<Array<Float>> = generateMatrix(Columns, Rows, RangeModifier);
+		var map:Array<Array<Float>> = generateFloatMatrix(Columns, Rows, RangeModifier);
 		NumLevels--;
 		
 		for (y in 0...Rows)
