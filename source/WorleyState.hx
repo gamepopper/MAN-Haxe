@@ -47,6 +47,7 @@ class WorleyState extends FlxState
 	override public function create():Void
 	{
 		FlxG.cameras.bgColor = 0xffe5e500;
+		FlxG.camera.flash(0);
 		width = Std.int(FlxG.width / tileSize);
 		height = Std.int(FlxG.height / tileSize);
 		
@@ -87,16 +88,16 @@ class WorleyState extends FlxState
 		var button:FlxButton = new FlxButton(530, 195, "[G]enerate", generateMap);
 		uiGroup.add(button);
 		
-		midpointButton = new FlxButton(0, 450, "Midpoint", toMidpoint);
+		midpointButton = new FlxButton(0, FlxG.height-30, "Midpoint", toMidpoint);
 		add(midpointButton);
 		
 		var buttonWidth:Int = Std.int(midpointButton.width);
 		midpointButton.x = 15;
 		
-		worleyButton = new FlxButton(width + 25, 450, "Worley Noise", toWorley);
+		worleyButton = new FlxButton(width + 25, midpointButton.y, "Worley Noise", toWorley);
 		//add(worleyButton);
 		
-		perlinButton = new FlxButton((width*2) + 35, 450, "Perlin Noise", toPerlin);
+		perlinButton = new FlxButton((width*2) + 35,midpointButton.y, "Perlin Noise", toPerlin);
 		add(perlinButton);
 		
 		uiGroup.add(title);
@@ -135,9 +136,9 @@ class WorleyState extends FlxState
 	{
 		var timeStart:Date = Date.now();
 		mapString = FlxWorleyNoise.generateWorleyMapString(width, height, pointCount, fClosest - 1, worleyDistance, 256);
+		var timeFinish:Date = Date.now();
 		map.loadMapFromCSV(mapString, "assets/images/" + tileSize + "PixelStrip.png", tileSize, tileSize);
 		map.updateBuffers();
-		var timeFinish:Date = Date.now();
 		processTime.text = "Time: " + ((timeFinish.getTime() - timeStart.getTime()) / 1000) + "s";
 	}
 

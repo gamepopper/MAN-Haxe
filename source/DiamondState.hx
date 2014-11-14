@@ -42,6 +42,7 @@ class DiamondState extends FlxState
 	override public function create():Void
 	{
 		FlxG.cameras.bgColor = 0xffe5e500;
+		FlxG.camera.flash(0);
 		width = Std.int(FlxG.width / tileSize);
 		height = Std.int(FlxG.height / tileSize);
 		
@@ -106,9 +107,9 @@ class DiamondState extends FlxState
 	{
 		var timeStart:Date = Date.now();
 		mapString = FlxMidpointDisplacement.generateMatrixString(width, height, rangeModifer, 256);
+		var timeFinish:Date = Date.now();
 		map.loadMapFromCSV(mapString, "assets/images/" + tileSize + "PixelStrip.png", tileSize, tileSize);
 		map.updateBuffers();
-		var timeFinish:Date = Date.now();
 		processTime.text = "Time: " + ((timeFinish.getTime() - timeStart.getTime()) / 1000) + "s";
 	}
 
