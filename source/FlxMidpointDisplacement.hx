@@ -40,7 +40,7 @@ class FlxMidpointDisplacement
 	 * @param	RangeModifier			The rate at which to decrease the value range of the midpoint.
 	 * @return	A float value matrix from [0,1]
 	 * */
-	public static function generateFloatMatrix(Columns:Int, Rows:Int, RangeModifier:Float = 0.65):Array<Array<Float>>
+	private static function generateMatrix(Columns:Int, Rows:Int, RangeModifier:Float = 0.65):Array<Array<Float>>
 	{
 		//Blank 2D Array
 		var matrix:Array<Array<Float>> = InitFloatMatrix(Columns, Rows);
@@ -53,10 +53,7 @@ class FlxMidpointDisplacement
 		matrix[Rows - 1][Columns - 1] = Math.random() + 0.25;
 		
 		//Calculates the amount of segments in base 2
-		var length = Rows;
-		if (length < Columns) length = Columns;
-		
-		var power:Int = Std.int(Math.pow(2, Math.ceil(Math.log(length) / Math.log(2))));
+		var power:Int = Columns;
 		
 		//Stores largest calculated value for normalization
 		var max:Float = 0;
@@ -130,10 +127,36 @@ class FlxMidpointDisplacement
 		return matrix;
 	}
 	
+	/**
+	 * Generates float matrix using the Worley Noise algoritm.
+	 * 
+	 * @param	Columns 				Number of columns for the matrix
+	 * @param	Rows					Number of rows for the matrix
+	 * @param	RangeModifier			The rate at which to decrease the value range of the midpoint.
+	 * @return	A float value matrix from [0,1]
+	 * */
+	public static function generateFloatMatrix(Columns:Int, Rows:Int, RangeModifier:Float = 0.65):Array<Array<Float>>
+	{
+		var length = Rows;
+		if (length < Columns) length = Columns;
+		
+		length--;
+		length |= length >> 1;
+		length |= length >> 2;
+		length |= length >> 4;
+		length |= length >> 8;
+		length |= length >> 16;
+		length += 2;
+		
+		var matrix:Array<Array<Float>> = generateMatrix(length, length, RangeModifier);
+		
+		return matrix;
+	}
+	
 	public static function generateIntMatrix(Columns:Int, Rows:Int, RangeModifier:Float = 0.65, NumLevels:Int = 2):Array<Array<Int>>
 	{
 		var matrix:Array<Array<Int>> = InitIntMatrix(Columns, Rows);
-		var map:Array<Array<Float>> = generateFloatMatrix(Columns, Rows, RangeModifier);
+		var map:Array<Array<Float>> = generateMatrix(Columns, Rows, RangeModifier);
 		NumLevels--;
 		
 		for (y in 0...Rows)
