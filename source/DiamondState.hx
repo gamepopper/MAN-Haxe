@@ -118,7 +118,7 @@ class DiamondState extends FlxState
 	{
 		Reg.imagePath = "assets/images/BasicWorldStrip.png";
 		Reg.levelNumber = 12;
-		FlxG.cameras.bgColor = 0xFFe0d5d0;
+		FlxG.cameras.bgColor = 0x122b8d;
 		generateMap();
 	}
 	
