@@ -25,7 +25,7 @@
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="flixel-addons=1.1.0&#xA;flixel-ui=1.0.2&#xA;openfl=2.1.1&#xA;flixel=3.3.5&#xA;lime=2.0.0-alpha.2&#xA;tools=2.0.0-alpha.2&#xA;FLX_NO_DEBUG&#xA;no-compilation&#xA;NAPE_RELEASE_BUILD&#xA;openfl-flash&#xA;web&#xA;swf-script-timeout=120" />
+    <option directives="flixel-addons=1.1.0&#xA;flixel-ui=1.0.2&#xA;openfl=2.1.1&#xA;flixel=3.3.5&#xA;lime=2.0.0-alpha.2&#xA;tools=2.0.0-alpha.2&#xA;FLX_NO_DEBUG&#xA;no-compilation&#xA;NAPE_RELEASE_BUILD&#xA;openfl-flash&#xA;web" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
