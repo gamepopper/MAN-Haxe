@@ -1,6 +1,5 @@
 package;
 
-import flixel.addons.ui.FlxUIDropDownMenu;
 import flixel.FlxG;
 import flixel.group.FlxGroup;
 import flixel.util.FlxColor;
@@ -10,14 +9,12 @@ import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
 import flixel.ui.FlxButton;
 import flixel.addons.ui.FlxSlider;
-import flixel.addons.ui.FlxUIRadioGroup;
 import flixel.addons.tile.FlxCaveGenerator;
-import FlxWorleyNoise;
 
 /**
  * A FlxState which can be used for the actual gameplay.
  */
-class WorleyState extends FlxState
+class ImprovedState extends FlxState
 {
 	//Tilemap Properties
 	var tileSize:Int = 8;
@@ -28,15 +25,12 @@ class WorleyState extends FlxState
 	var map:FlxTilemap;
 	var mapString:String;
 	
-	//Worley Noise Parameters
-	var worleyDistance:DistanceCalculator = Euclidean;
-	var pointCount:Int = 16;
-	var fClosest:Int = 1;
+	//Perlin Noise Parameters
+	var seed:Int = 0;
 	
 	//UI
 	var title:FlxText;
 	var processTime:FlxText;
-	var worleyCheck:FlxUIRadioGroup;
 	var midpointButton:FlxButton;
 	var worleyButton:FlxButton;
 	var perlinButton:FlxButton;
@@ -56,7 +50,7 @@ class WorleyState extends FlxState
 		
 		uiGroup = new FlxGroup();
 		
-		title = new FlxText(500, 5, 140, "Worley (Cell) Noise", 9);
+		title = new FlxText(500, 5, 140, "Improved Noise", 9);
 		title.alignment = "center";
 		title.color = 0xFF000000;
 		
@@ -73,34 +67,22 @@ class WorleyState extends FlxState
 		uiBG.alpha = 0.85;
 		uiGroup.add(uiBG);
 		
-		var pointCountSlider:FlxSlider = new FlxSlider(this, "pointCount", 520, 20, 0, 32, 100, 10);
-		uiGroup.add(pointCountSlider);
-		
-		var fSlider:FlxSlider = new FlxSlider(this, "fClosest", 520, 70, 1, 6, 100, 10);
-		uiGroup.add(fSlider);
-		
-		var distances:Array<String> = new Array<String>();
-		distances.push("Euclidean");
-		distances.push("Manhattan");
-		distances.push("Chebyshev");
-		distances.push("Minkowski");
-		worleyCheck = new FlxUIRadioGroup(530, 120, distances, distances, setDistanceCalculator, 15);
-		worleyCheck.setRadioActive(0, true);
-		uiGroup.add(worleyCheck);
+		var seedSlider:FlxSlider = new FlxSlider(this, "seed", 520, 40, 0, 256, 100, 10);
+		uiGroup.add(seedSlider);
 		
 		var button:FlxButton = new FlxButton(530, 195, "[G]enerate", generateMap);
 		uiGroup.add(button);
 		
-		midpointButton = new FlxButton(0, FlxG.height-30, "Midpoint", toMidpoint);
+		midpointButton = new FlxButton(0, 450, "Midpoint", toMidpoint);
 		add(midpointButton);
 		
 		var buttonWidth:Int = Std.int(midpointButton.width);
 		midpointButton.x = 15;
 		
-		worleyButton = new FlxButton(width + 25, midpointButton.y, "Worley Noise", toWorley);
-		//add(worleyButton);
+		worleyButton = new FlxButton(width + 25, 450, "Worley Noise", toWorley);
+		add(worleyButton);
 		
-		perlinButton = new FlxButton((width*2) + 35,midpointButton.y, "Perlin Noise", toPerlin);
+		perlinButton = new FlxButton((width*2) + 35, 450, "Perlin Noise", toPerlin);
 		add(perlinButton);
 		
 		improvedButton = new FlxButton((width*3) + 45, 450, "Improved", toImproved);
@@ -121,7 +103,7 @@ class WorleyState extends FlxState
 	
 	function toWorley() { FlxG.switchState(new WorleyState());}
 	function toPerlin() { FlxG.switchState(new PerlinState()); }
-	function toMidpoint() { FlxG.switchState(new DiamondState());}
+	function toMidpoint() { FlxG.switchState(new DiamondState()); }
 	function toImproved() { FlxG.switchState(new ImprovedState()); }
 	
 	function switchToRange()
@@ -149,22 +131,10 @@ class WorleyState extends FlxState
 		super.destroy();
 	}
 	
-	function setDistanceCalculator(id:String):Void
-	{
-		if (id == "Manhattan")
-			worleyDistance = Manhattan;
-		else if (id == "Chebyshev")
-			worleyDistance = Chebyshev;
-		else if  (id == "Minkowski")
-			worleyDistance = Minkowski;
-		else
-			worleyDistance = Euclidean;
-	}
-	
 	function generateMap():Void
 	{
 		var timeStart:Date = Date.now();
-		mapString = FlxWorleyNoise.generateWorleyMapString(width, height, pointCount, fClosest - 1, worleyDistance, Reg.levelNumber);
+		mapString = FlxImprovedNoise.generateMatrixString(width, height, seed, Reg.levelNumber);
 		var timeFinish:Date = Date.now();
 		map.loadMapFromCSV(mapString, Reg.imagePath, tileSize, tileSize);
 		map.updateBuffers();

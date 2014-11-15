@@ -34,6 +34,9 @@ class DiamondState extends FlxState
 	var midpointButton:FlxButton;
 	var worleyButton:FlxButton;
 	var perlinButton:FlxButton;
+	var improvedButton:FlxButton;
+	var rangeButton:FlxButton;
+	var landButton:FlxButton;
 	var uiGroup:FlxGroup;
 	
 	/**
@@ -41,7 +44,6 @@ class DiamondState extends FlxState
 	 */
 	override public function create():Void
 	{
-		FlxG.cameras.bgColor = 0xffe5e500;
 		FlxG.camera.flash(0);
 		width = Std.int(FlxG.width / tileSize);
 		height = Std.int(FlxG.height / tileSize);
@@ -83,6 +85,15 @@ class DiamondState extends FlxState
 		perlinButton = new FlxButton((width*2) + 35, 450, "Perlin Noise", toPerlin);
 		add(perlinButton);
 		
+		improvedButton = new FlxButton((width*3) + 45, 450, "Improved", toImproved);
+		//add(improvedButton);
+		
+		rangeButton = new FlxButton(FlxG.width - (width * 2) - 35, midpointButton.y, "Range Colour", switchToRange);
+		add(rangeButton);
+		
+		landButton = new FlxButton(FlxG.width - width - 25, midpointButton.y, "Land Colour", switchToLand);
+		add(landButton);
+		
 		uiGroup.add(title);
 		uiGroup.add(processTime);
 		add(uiGroup);
@@ -93,6 +104,23 @@ class DiamondState extends FlxState
 	function toWorley() { FlxG.switchState(new WorleyState());}
 	function toPerlin() { FlxG.switchState(new PerlinState()); }
 	function toMidpoint() { FlxG.switchState(new DiamondState());}
+	function toImproved() { FlxG.switchState(new ImprovedState()); }
+	
+	function switchToRange()
+	{
+		Reg.imagePath = "assets/images/8PixelStrip.png";
+		Reg.levelNumber = 256;
+		FlxG.cameras.bgColor = FlxColor.YELLOW;
+		generateMap();
+	}
+	
+	function switchToLand()
+	{
+		Reg.imagePath = "assets/images/BasicWorldStrip.png";
+		Reg.levelNumber = 12;
+		FlxG.cameras.bgColor = 0x122b8d;
+		generateMap();
+	}
 	
 	/**
 	 * Function that is called when this state is destroyed - you might want to 
@@ -106,9 +134,9 @@ class DiamondState extends FlxState
 	function generateMap():Void
 	{
 		var timeStart:Date = Date.now();
-		mapString = FlxMidpointDisplacement.generateMatrixString(width, height, rangeModifer, 256);
+		mapString = FlxMidpointDisplacement.generateMatrixString(width, height, rangeModifer, Reg.levelNumber);
 		var timeFinish:Date = Date.now();
-		map.loadMapFromCSV(mapString, "assets/images/" + tileSize + "PixelStrip.png", tileSize, tileSize);
+		map.loadMapFromCSV(mapString, Reg.imagePath, tileSize, tileSize);
 		map.updateBuffers();
 		processTime.text = "Time: " + ((timeFinish.getTime() - timeStart.getTime()) / 1000) + "s";
 	}
@@ -128,9 +156,15 @@ class DiamondState extends FlxState
 		midpointButton.alpha = 0.5;
 		worleyButton.alpha = 0.5;
 		perlinButton.alpha = 0.5;
+		improvedButton.alpha = 0.5;
+		rangeButton.alpha = 0.5;
+		landButton.alpha = 0.5;
 		if (FlxG.mouse.overlaps(midpointButton)) midpointButton.alpha = 1;
 		if (FlxG.mouse.overlaps(worleyButton)) worleyButton.alpha = 1;
 		if (FlxG.mouse.overlaps(perlinButton)) perlinButton.alpha = 1;
+		if (FlxG.mouse.overlaps(improvedButton)) improvedButton.alpha = 1;
+		if (FlxG.mouse.overlaps(rangeButton)) rangeButton.alpha = 1;
+		if (FlxG.mouse.overlaps(landButton)) landButton.alpha = 1;
 		
 		super.update(elapsed);
 	}
