@@ -72,7 +72,7 @@ class FlxPerlinNoise
 			{
 				var level:Int = Math.floor(map[y][x] * NumLevels);
 				if (level < 0) level = 0;
-				if (level >= NumLevels) level = NumLevels - 1;
+				if (level > NumLevels - 1) level = NumLevels - 1;
 				matrix[y][x] = level;
 			}
 		}
