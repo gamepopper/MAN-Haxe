@@ -4,7 +4,7 @@ package ;
  * This class uses the perlin noise algorithm to generate a procedural pattern to a grid.
  * @author Tim Stoddard
  */
-class FlxPerlinNoise
+class FlxValueNoise
 {
 	/**
 	 * Convert a matrix generated via generateCaveMatrix() into data 

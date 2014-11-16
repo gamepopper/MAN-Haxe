@@ -14,7 +14,7 @@ import flixel.addons.tile.FlxCaveGenerator;
 /**
  * A FlxState which can be used for the actual gameplay.
  */
-class PerlinState extends FlxState
+class ValueState extends FlxState
 {
 	//Tilemap Properties
 	var tileSize:Int = 8;
@@ -51,7 +51,7 @@ class PerlinState extends FlxState
 		
 		uiGroup = new FlxGroup();
 		
-		title = new FlxText(500, 5, 140, "Perlin Noise", 9);
+		title = new FlxText(500, 5, 140, "Value Noise", 9);
 		title.alignment = "center";
 		title.color = 0xFF000000;
 		
@@ -106,7 +106,7 @@ class PerlinState extends FlxState
 	}
 	
 	function toWorley() { FlxG.switchState(new WorleyState());}
-	function toPerlin() { FlxG.switchState(new PerlinState()); }
+	function toPerlin() { FlxG.switchState(new ValueState()); }
 	function toMidpoint() { FlxG.switchState(new DiamondState());}
 	function toImproved() { FlxG.switchState(new ImprovedState()); }
 	
@@ -138,7 +138,7 @@ class PerlinState extends FlxState
 	function generateMap():Void
 	{
 		var timeStart:Date = Date.now();
-		mapString = FlxPerlinNoise.generatePerlinMapString(width, height, octaves, persistance, Reg.levelNumber);
+		mapString = FlxValueNoise.generatePerlinMapString(width, height, octaves, persistance, Reg.levelNumber);
 		var timeFinish:Date = Date.now();
 		map.loadMapFromCSV(mapString, Reg.imagePath, tileSize, tileSize);
 		map.updateBuffers();

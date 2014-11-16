@@ -120,7 +120,7 @@ class WorleyState extends FlxState
 	}
 	
 	function toWorley() { FlxG.switchState(new WorleyState());}
-	function toPerlin() { FlxG.switchState(new PerlinState()); }
+	function toPerlin() { FlxG.switchState(new ValueState()); }
 	function toMidpoint() { FlxG.switchState(new DiamondState());}
 	function toImproved() { FlxG.switchState(new ImprovedState()); }
 	
