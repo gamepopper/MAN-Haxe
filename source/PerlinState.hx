@@ -114,7 +114,7 @@ class PerlinState extends FlxState
 	{
 		Reg.imagePath = "assets/images/8PixelStrip.png";
 		Reg.levelNumber = 256;
-		FlxG.cameras.bgColor = FlxColor.YELLOW;
+		FlxG.camera.bgColor = FlxColor.YELLOW;
 		generateMap();
 	}
 	
@@ -122,7 +122,7 @@ class PerlinState extends FlxState
 	{
 		Reg.imagePath = "assets/images/BasicWorldStrip.png";
 		Reg.levelNumber = 12;
-		FlxG.cameras.bgColor = 0x122b8d;
+		FlxG.camera.bgColor = 0xFF122b8d;
 		generateMap();
 	}
 	
