@@ -1,7 +1,7 @@
 package ;
 
 /**
- * This class uses the perlin noise algorithm to generate a procedural pattern to a grid.
+ * This class uses the Value noise algorithm to generate a procedural pattern to a grid.
  * @author Tim Stoddard
  */
 class FlxValueNoise
@@ -43,16 +43,16 @@ class FlxValueNoise
 	 * @param	Persistance		Persistance Value for combining octaves.
 	 * @return 	A string that is usuable for FlxTilemap.loadMap()
 	 */
-	public static function generatePerlinMatrix(Columns:Int, Rows:Int, NumOctaves:Int = 1, Persistance:Float = 0.5):Array<Array<Float>>
+	public static function generateValueMatrix(Columns:Int, Rows:Int, NumOctaves:Int = 1, Persistance:Float = 0.5):Array<Array<Float>>
 	{
 		var noise:Array<Array<Float>> = WhiteNoiseMatrix(Columns, Rows);
-		var perlin:Array<Array<Float>> = PerlinNoiseMatrix(noise, NumOctaves, Persistance);
+		var value:Array<Array<Float>> = ValueNoiseMatrix(noise, NumOctaves, Persistance);
 		
-		return perlin;
+		return value;
 	}
 	
 	/**
-	 * Generates a new PerlinMap matrix.
+	 * Generates a new ValueMap matrix.
 	 * 
 	 * @param	Columns 				Number of columns for the matrix
 	 * @param	Rows					Number of rows for the matrix
@@ -60,10 +60,10 @@ class FlxValueNoise
 	 * @param	NumLevels			 	Number of different values in the final map. (ex: 5 = [0,1,2,3,4])
 	 * @return	A cave string that is usable by FlxTilemap.loadMap()
 	 */
-	public static function generatePerlinMapMatrix(Columns:Int, Rows:Int, NumOctaves:Int = 1, Persistance:Float = 0.5, NumLevels:Int = 2):Array<Array<Int>>
+	public static function generateValueMapMatrix(Columns:Int, Rows:Int, NumOctaves:Int = 1, Persistance:Float = 0.5, NumLevels:Int = 2):Array<Array<Int>>
 	{
 		var matrix:Array<Array<Int>> = InitIntMatrix(Columns, Rows);
-		var map:Array<Array<Float>> = generatePerlinMatrix(Columns, Rows, NumOctaves, Persistance);
+		var map:Array<Array<Float>> = generateValueMatrix(Columns, Rows, NumOctaves, Persistance);
 		NumLevels--;
 		
 		for (y in 0...Rows)
@@ -81,7 +81,7 @@ class FlxValueNoise
 	}
 	
 	/**
-	 * Generates a new matrix via generatePerlinMapMatrix() and returns it in a format 
+	 * Generates a new matrix via generateValueMapMatrix() and returns it in a format 
 	 * usable by FlxTilemap.load() via convertMatrixToString().
 	 * 
 	 * Copied from FlxCaveGenerator.
@@ -92,9 +92,9 @@ class FlxValueNoise
 	 * @param	NumLevels			 	Number of different values in the final map. (ex: 5 = [0,1,2,3,4])
 	 * @return	A matrix string that is usable by FlxTilemap.loadMap()
 	 */
-	public static inline function generatePerlinMapString(Columns:Int, Rows:Int, NumOctaves:Int = 1, Persistance:Float = 0.5, NumLevels:Int = 2):String
+	public static inline function generateValueMapString(Columns:Int, Rows:Int, NumOctaves:Int = 1, Persistance:Float = 0.5, NumLevels:Int = 2):String
 	{
-		return convertMatrixToString(generatePerlinMapMatrix(Columns, Rows, NumOctaves, Persistance, NumLevels));
+		return convertMatrixToString(generateValueMapMatrix(Columns, Rows, NumOctaves, Persistance, NumLevels));
 	}
 	
 	/**
@@ -226,7 +226,7 @@ class FlxValueNoise
 		return x0 * (1 - alpha) + alpha * x1;
 	}
 	
-	private static function PerlinNoiseMatrix(BaseNoise:Array<Array<Float>>, numOctave:Int, Persistance:Float = 0.5):Array<Array<Float>>
+	private static function ValueNoiseMatrix(BaseNoise:Array<Array<Float>>, numOctave:Int, Persistance:Float = 0.5):Array<Array<Float>>
 	{
 		var width:Int = BaseNoise[0].length;
 		var height:Int = BaseNoise.length;

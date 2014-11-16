@@ -25,7 +25,7 @@ class ValueState extends FlxState
 	var map:FlxTilemap;
 	var mapString:String;
 	
-	//Perlin Noise Parameters
+	//Value Noise Parameters
 	var persistance:Float = 0.5;
 	var octaves:Int = 4;
 	
@@ -34,7 +34,7 @@ class ValueState extends FlxState
 	var processTime:FlxText;
 	var midpointButton:FlxButton;
 	var worleyButton:FlxButton;
-	var perlinButton:FlxButton;
+	var valueButton:FlxButton;
 	var improvedButton:FlxButton;
 	var rangeButton:FlxButton;
 	var landButton:FlxButton;
@@ -86,8 +86,8 @@ class ValueState extends FlxState
 		worleyButton = new FlxButton(width + 25, 450, "Worley Noise", toWorley);
 		add(worleyButton);
 		
-		perlinButton = new FlxButton((width*2) + 35, 450, "Perlin Noise", toPerlin);
-		//add(perlinButton);
+		valueButton = new FlxButton((width*2) + 35, 450, "Value Noise", toValue);
+		//add(valueButton);
 		
 		improvedButton = new FlxButton((width*3) + 45, 450, "Improved", toImproved);
 		//add(improvedButton);
@@ -106,7 +106,7 @@ class ValueState extends FlxState
 	}
 	
 	function toWorley() { FlxG.switchState(new WorleyState());}
-	function toPerlin() { FlxG.switchState(new ValueState()); }
+	function toValue() { FlxG.switchState(new ValueState()); }
 	function toMidpoint() { FlxG.switchState(new DiamondState());}
 	function toImproved() { FlxG.switchState(new ImprovedState()); }
 	
@@ -138,7 +138,7 @@ class ValueState extends FlxState
 	function generateMap():Void
 	{
 		var timeStart:Date = Date.now();
-		mapString = FlxValueNoise.generatePerlinMapString(width, height, octaves, persistance, Reg.levelNumber);
+		mapString = FlxValueNoise.generateValueMapString(width, height, octaves, persistance, Reg.levelNumber);
 		var timeFinish:Date = Date.now();
 		map.loadMapFromCSV(mapString, Reg.imagePath, tileSize, tileSize);
 		map.updateBuffers();
@@ -159,13 +159,13 @@ class ValueState extends FlxState
 		
 		midpointButton.alpha = 0.5;
 		worleyButton.alpha = 0.5;
-		perlinButton.alpha = 0.5;
+		valueButton.alpha = 0.5;
 		improvedButton.alpha = 0.5;
 		rangeButton.alpha = 0.5;
 		landButton.alpha = 0.5;
 		if (FlxG.mouse.overlaps(midpointButton)) midpointButton.alpha = 1;
 		if (FlxG.mouse.overlaps(worleyButton)) worleyButton.alpha = 1;
-		if (FlxG.mouse.overlaps(perlinButton)) perlinButton.alpha = 1;
+		if (FlxG.mouse.overlaps(valueButton)) valueButton.alpha = 1;
 		if (FlxG.mouse.overlaps(improvedButton)) improvedButton.alpha = 1;
 		if (FlxG.mouse.overlaps(rangeButton)) rangeButton.alpha = 1;
 		if (FlxG.mouse.overlaps(landButton)) landButton.alpha = 1;
