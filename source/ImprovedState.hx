@@ -134,7 +134,7 @@ class ImprovedState extends FlxState
 	function generateMap():Void
 	{
 		var timeStart:Date = Date.now();
-		mapString = FlxImprovedNoise.generateMatrixString(width, height, seed, Reg.levelNumber);
+		mapString = HxImprovedNoise.generateMatrixString(width, height, seed, Reg.levelNumber);
 		var timeFinish:Date = Date.now();
 		map.loadMapFromCSV(mapString, Reg.imagePath, tileSize, tileSize);
 		map.updateBuffers();

@@ -12,7 +12,7 @@ import flixel.ui.FlxButton;
 import flixel.addons.ui.FlxSlider;
 import flixel.addons.ui.FlxUIRadioGroup;
 import flixel.addons.tile.FlxCaveGenerator;
-import FlxWorleyNoise;
+import HxWorleyNoise;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -164,7 +164,7 @@ class WorleyState extends FlxState
 	function generateMap():Void
 	{
 		var timeStart:Date = Date.now();
-		mapString = FlxWorleyNoise.generateWorleyMapString(width, height, pointCount, fClosest - 1, worleyDistance, Reg.levelNumber);
+		mapString = HxWorleyNoise.generateWorleyMapString(width, height, pointCount, fClosest - 1, worleyDistance, Reg.levelNumber);
 		var timeFinish:Date = Date.now();
 		map.loadMapFromCSV(mapString, Reg.imagePath, tileSize, tileSize);
 		map.updateBuffers();

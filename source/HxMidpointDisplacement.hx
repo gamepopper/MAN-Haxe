@@ -4,7 +4,7 @@ package ;
  * This class uses the Midpoint Displacement algorithm to generate a procedural pattern to a grid.
  * @author Tim Stoddard
  */
-class FlxMidpointDisplacement
+class HxMidpointDisplacement
 {
 	/**
 	 * Convert a matrix generated via generateCaveMatrix() into data 

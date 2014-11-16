@@ -13,7 +13,7 @@ enum DistanceCalculator
 	Minkowski;
 }
 
-class FlxWorleyNoise
+class HxWorleyNoise
 {
 	/**
 	 * Convert a matrix generated via generateCaveMatrix() into data 

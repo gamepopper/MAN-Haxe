@@ -134,7 +134,7 @@ class DiamondState extends FlxState
 	function generateMap():Void
 	{
 		var timeStart:Date = Date.now();
-		mapString = FlxMidpointDisplacement.generateMatrixString(width, height, rangeModifer, Reg.levelNumber);
+		mapString = HxMidpointDisplacement.generateMatrixString(width, height, rangeModifer, Reg.levelNumber);
 		var timeFinish:Date = Date.now();
 		map.loadMapFromCSV(mapString, Reg.imagePath, tileSize, tileSize);
 		map.updateBuffers();
