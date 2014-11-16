@@ -58,10 +58,10 @@ class FlxMidpointDisplacement
 		var range:Float = 1;
 		
 		//Set Values for all four corners
-		matrix[0][0] = Math.random() + 0.25;
-		matrix[Rows-1][0] = Math.random() + 0.25;
-		matrix[0][Columns-1] = Math.random() + 0.25;
-		matrix[Rows - 1][Columns - 1] = Math.random() + 0.25;
+		matrix[0][0] = Math.random();
+		matrix[Rows-1][0] = Math.random();
+		matrix[0][Columns-1] = Math.random();
+		matrix[Rows - 1][Columns - 1] = Math.random();
 		
 		//Stores largest calculated value for normalization
 		var max:Float = 0;
@@ -148,8 +148,8 @@ class FlxMidpointDisplacement
 			for (x in 0...Columns)
 			{
 				var level:Int = Math.floor(map[y][x] * NumLevels);
-				if (level < 0) level = 0;
 				if (level > NumLevels - 1) level = NumLevels - 1;
+				if (level < 1) level = 1;
 				matrix[y][x] = level;
 			}
 		}
