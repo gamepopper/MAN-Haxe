@@ -98,7 +98,7 @@ class WorleyState extends FlxState
 		midpointButton.x = 15;
 		
 		worleyButton = new FlxButton(width + 25, midpointButton.y, "Worley Noise", toWorley);
-		//add(worleyButton);
+		add(worleyButton);
 		
 		valueButton = new FlxButton((width*2) + 35,midpointButton.y, "Value Noise", toValue);
 		add(valueButton);
@@ -184,13 +184,13 @@ class WorleyState extends FlxState
 		uiGroup.visible = FlxG.mouse.overlaps(uiGroup);
 		
 		midpointButton.alpha = 0.5;
-		worleyButton.alpha = 0.5;
+		worleyButton.alpha = 0.2;
 		valueButton.alpha = 0.5;
 		improvedButton.alpha = 0.5;
 		rangeButton.alpha = 0.5;
 		landButton.alpha = 0.5;
 		if (FlxG.mouse.overlaps(midpointButton)) midpointButton.alpha = 1;
-		if (FlxG.mouse.overlaps(worleyButton)) worleyButton.alpha = 1;
+		if (FlxG.mouse.overlaps(worleyButton)) worleyButton.alpha = 0.5;
 		if (FlxG.mouse.overlaps(valueButton)) valueButton.alpha = 1;
 		if (FlxG.mouse.overlaps(improvedButton)) improvedButton.alpha = 1;
 		if (FlxG.mouse.overlaps(rangeButton)) rangeButton.alpha = 1;

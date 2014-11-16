@@ -156,13 +156,13 @@ class ImprovedState extends FlxState
 		midpointButton.alpha = 0.5;
 		worleyButton.alpha = 0.5;
 		valueButton.alpha = 0.5;
-		improvedButton.alpha = 0.5;
+		improvedButton.alpha = 0.2;
 		rangeButton.alpha = 0.5;
 		landButton.alpha = 0.5;
 		if (FlxG.mouse.overlaps(midpointButton)) midpointButton.alpha = 1;
 		if (FlxG.mouse.overlaps(worleyButton)) worleyButton.alpha = 1;
 		if (FlxG.mouse.overlaps(valueButton)) valueButton.alpha = 1;
-		if (FlxG.mouse.overlaps(improvedButton)) improvedButton.alpha = 1;
+		if (FlxG.mouse.overlaps(improvedButton)) improvedButton.alpha = 0.5;
 		if (FlxG.mouse.overlaps(rangeButton)) rangeButton.alpha = 1;
 		if (FlxG.mouse.overlaps(landButton)) landButton.alpha = 1;
 		

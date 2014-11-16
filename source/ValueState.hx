@@ -87,7 +87,7 @@ class ValueState extends FlxState
 		add(worleyButton);
 		
 		valueButton = new FlxButton((width*2) + 35, 450, "Value Noise", toValue);
-		//add(valueButton);
+		add(valueButton);
 		
 		improvedButton = new FlxButton((width*3) + 45, 450, "Improved", toImproved);
 		//add(improvedButton);
@@ -159,13 +159,13 @@ class ValueState extends FlxState
 		
 		midpointButton.alpha = 0.5;
 		worleyButton.alpha = 0.5;
-		valueButton.alpha = 0.5;
+		valueButton.alpha = 0.2;
 		improvedButton.alpha = 0.5;
 		rangeButton.alpha = 0.5;
 		landButton.alpha = 0.5;
 		if (FlxG.mouse.overlaps(midpointButton)) midpointButton.alpha = 1;
 		if (FlxG.mouse.overlaps(worleyButton)) worleyButton.alpha = 1;
-		if (FlxG.mouse.overlaps(valueButton)) valueButton.alpha = 1;
+		if (FlxG.mouse.overlaps(valueButton)) valueButton.alpha = 0.5;
 		if (FlxG.mouse.overlaps(improvedButton)) improvedButton.alpha = 1;
 		if (FlxG.mouse.overlaps(rangeButton)) rangeButton.alpha = 1;
 		if (FlxG.mouse.overlaps(landButton)) landButton.alpha = 1;

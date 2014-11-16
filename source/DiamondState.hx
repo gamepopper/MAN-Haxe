@@ -74,7 +74,7 @@ class DiamondState extends FlxState
 		uiGroup.add(button);
 		
 		midpointButton = new FlxButton(0, 450, "Midpoint", toMidpoint);
-		//add(midpointButton);
+		add(midpointButton);
 		
 		var buttonWidth:Int = Std.int(midpointButton.width);
 		midpointButton.x = 15;
@@ -153,13 +153,13 @@ class DiamondState extends FlxState
 		
 		uiGroup.visible = FlxG.mouse.overlaps(uiGroup);
 		
-		midpointButton.alpha = 0.5;
+		midpointButton.alpha = 0.2;
 		worleyButton.alpha = 0.5;
 		valueButton.alpha = 0.5;
 		improvedButton.alpha = 0.5;
 		rangeButton.alpha = 0.5;
 		landButton.alpha = 0.5;
-		if (FlxG.mouse.overlaps(midpointButton)) midpointButton.alpha = 1;
+		if (FlxG.mouse.overlaps(midpointButton)) midpointButton.alpha = 0.5;
 		if (FlxG.mouse.overlaps(worleyButton)) worleyButton.alpha = 1;
 		if (FlxG.mouse.overlaps(valueButton)) valueButton.alpha = 1;
 		if (FlxG.mouse.overlaps(improvedButton)) improvedButton.alpha = 1;
