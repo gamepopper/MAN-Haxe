@@ -14,7 +14,7 @@ import flixel.addons.tile.FlxCaveGenerator;
 /**
  * A FlxState which can be used for the actual gameplay.
  */
-class ImprovedState extends FlxState
+class MazeState extends FlxState
 {
 	//Tilemap Properties
 	var tileSize:Int = 8;
@@ -25,16 +25,13 @@ class ImprovedState extends FlxState
 	var map:FlxTilemap;
 	var mapString:String;
 	
-	//Value Noise Parameters
-	var seed:Int = 0;
-	
 	//UI
 	var title:FlxText;
 	var processTime:FlxText;
 	var midpointButton:FlxButton;
 	var worleyButton:FlxButton;
 	var valueButton:FlxButton;
-	var improvedButton:FlxButton;
+	var mazeButton:FlxButton;
 	var rangeButton:FlxButton;
 	var landButton:FlxButton;
 	var uiGroup:FlxGroup;
@@ -45,12 +42,13 @@ class ImprovedState extends FlxState
 	override public function create():Void
 	{
 		FlxG.camera.flash(0);
+		FlxG.camera.bgColor = FlxColor.WHITE;
 		width = Std.int(FlxG.width / tileSize);
 		height = Std.int(FlxG.height / tileSize);
 		
 		uiGroup = new FlxGroup();
 		
-		title = new FlxText(500, 5, 140, "Improved Noise", 9);
+		title = new FlxText(500, 5, 140, "Randomized Prim Maze", 9);
 		title.alignment = "center";
 		title.color = 0xFF000000;
 		
@@ -67,9 +65,6 @@ class ImprovedState extends FlxState
 		uiBG.alpha = 0.85;
 		uiGroup.add(uiBG);
 		
-		var seedSlider:FlxSlider = new FlxSlider(this, "seed", 520, 40, 0, 256, 100, 10);
-		uiGroup.add(seedSlider);
-		
 		var button:FlxButton = new FlxButton(530, 195, "[G]enerate", generateMap);
 		uiGroup.add(button);
 		
@@ -85,14 +80,8 @@ class ImprovedState extends FlxState
 		valueButton = new FlxButton((width*2) + 35, 450, "Value Noise", toValue);
 		add(valueButton);
 		
-		improvedButton = new FlxButton((width*3) + 45, 450, "Improved", toImproved);
-		//add(improvedButton);
-		
-		rangeButton = new FlxButton(FlxG.width - (width * 2) - 35, midpointButton.y, "Range Colour", switchToRange);
-		add(rangeButton);
-		
-		landButton = new FlxButton(FlxG.width - width - 25, midpointButton.y, "Land Colour", switchToLand);
-		add(landButton);
+		mazeButton = new FlxButton((width*3) + 45, 450, "Maze", toImproved);
+		add(mazeButton);
 		
 		uiGroup.add(title);
 		uiGroup.add(processTime);
@@ -104,23 +93,7 @@ class ImprovedState extends FlxState
 	function toWorley() { FlxG.switchState(new WorleyState());}
 	function toValue() { FlxG.switchState(new ValueState()); }
 	function toMidpoint() { FlxG.switchState(new DiamondState()); }
-	function toImproved() { FlxG.switchState(new ImprovedState()); }
-	
-	function switchToRange()
-	{
-		Reg.imagePath = "assets/images/8PixelStrip.png";
-		Reg.levelNumber = 256;
-		FlxG.cameras.bgColor = FlxColor.YELLOW;
-		generateMap();
-	}
-	
-	function switchToLand()
-	{
-		Reg.imagePath = "assets/images/BasicWorldStrip.png";
-		Reg.levelNumber = 12;
-		FlxG.cameras.bgColor = 0xFF122b8d;
-		generateMap();
-	}
+	function toImproved() { FlxG.switchState(new MazeState()); }
 	
 	/**
 	 * Function that is called when this state is destroyed - you might want to 
@@ -134,9 +107,9 @@ class ImprovedState extends FlxState
 	function generateMap():Void
 	{
 		var timeStart:Date = Date.now();
-		mapString = HxImprovedNoise.generateMatrixString(width, height, seed, Reg.levelNumber);
+		mapString = HxPrimMaze.generateMatrixString(width, height);
 		var timeFinish:Date = Date.now();
-		map.loadMapFromCSV(mapString, Reg.imagePath, tileSize, tileSize);
+		map.loadMapFromCSV(mapString, "assets/images/BasicWorldStrip.png", tileSize, tileSize);
 		map.updateBuffers();
 		processTime.text = "Time: " + ((timeFinish.getTime() - timeStart.getTime()) / 1000) + "s";
 	}
@@ -156,15 +129,11 @@ class ImprovedState extends FlxState
 		midpointButton.alpha = 0.5;
 		worleyButton.alpha = 0.5;
 		valueButton.alpha = 0.5;
-		improvedButton.alpha = 0.2;
-		rangeButton.alpha = 0.5;
-		landButton.alpha = 0.5;
+		mazeButton.alpha = 0.2;
 		if (FlxG.mouse.overlaps(midpointButton)) midpointButton.alpha = 1;
 		if (FlxG.mouse.overlaps(worleyButton)) worleyButton.alpha = 1;
 		if (FlxG.mouse.overlaps(valueButton)) valueButton.alpha = 1;
-		if (FlxG.mouse.overlaps(improvedButton)) improvedButton.alpha = 0.5;
-		if (FlxG.mouse.overlaps(rangeButton)) rangeButton.alpha = 1;
-		if (FlxG.mouse.overlaps(landButton)) landButton.alpha = 1;
+		if (FlxG.mouse.overlaps(mazeButton)) mazeButton.alpha = 0.5;
 		
 		super.update(elapsed);
 	}

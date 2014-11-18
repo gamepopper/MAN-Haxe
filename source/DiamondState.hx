@@ -34,7 +34,7 @@ class DiamondState extends FlxState
 	var midpointButton:FlxButton;
 	var worleyButton:FlxButton;
 	var valueButton:FlxButton;
-	var improvedButton:FlxButton;
+	var mazeButton:FlxButton;
 	var rangeButton:FlxButton;
 	var landButton:FlxButton;
 	var uiGroup:FlxGroup;
@@ -85,8 +85,8 @@ class DiamondState extends FlxState
 		valueButton = new FlxButton((width*2) + 35, 450, "Value Noise", toValue);
 		add(valueButton);
 		
-		improvedButton = new FlxButton((width*3) + 45, 450, "Improved", toImproved);
-		//add(improvedButton);
+		mazeButton = new FlxButton((width*3) + 45, 450, "Maze", toImproved);
+		add(mazeButton);
 		
 		rangeButton = new FlxButton(FlxG.width - (width * 2) - 35, midpointButton.y, "Range Colour", switchToRange);
 		add(rangeButton);
@@ -104,7 +104,7 @@ class DiamondState extends FlxState
 	function toWorley() { FlxG.switchState(new WorleyState());}
 	function toValue() { FlxG.switchState(new ValueState()); }
 	function toMidpoint() { FlxG.switchState(new DiamondState());}
-	function toImproved() { FlxG.switchState(new ImprovedState()); }
+	function toImproved() { FlxG.switchState(new MazeState()); }
 	
 	function switchToRange()
 	{
@@ -156,13 +156,13 @@ class DiamondState extends FlxState
 		midpointButton.alpha = 0.2;
 		worleyButton.alpha = 0.5;
 		valueButton.alpha = 0.5;
-		improvedButton.alpha = 0.5;
+		mazeButton.alpha = 0.5;
 		rangeButton.alpha = 0.5;
 		landButton.alpha = 0.5;
 		if (FlxG.mouse.overlaps(midpointButton)) midpointButton.alpha = 0.5;
 		if (FlxG.mouse.overlaps(worleyButton)) worleyButton.alpha = 1;
 		if (FlxG.mouse.overlaps(valueButton)) valueButton.alpha = 1;
-		if (FlxG.mouse.overlaps(improvedButton)) improvedButton.alpha = 1;
+		if (FlxG.mouse.overlaps(mazeButton)) mazeButton.alpha = 1;
 		if (FlxG.mouse.overlaps(rangeButton)) rangeButton.alpha = 1;
 		if (FlxG.mouse.overlaps(landButton)) landButton.alpha = 1;
 		
