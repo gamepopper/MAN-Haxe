@@ -1,0 +1,12 @@
+{
+  "name": "MAN-Haxe",
+  "url" : "https://github.com/gamepopper/MAN-Haxe",
+  "license": "MIT",
+  "tags": ["cross", "cpp", "flash", "neko", "openfl", "android", "ios", "game"]
+  "description": "This library is useless in the same way on every platform.",
+  "version": "0.0.1",
+  "releasenote": "Initial release, everything is working correctly.",
+  "contributors": ["gamepopper"],
+  "dependencies": {
+  }
+}

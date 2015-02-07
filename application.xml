@@ -16,10 +16,6 @@
 	<source path="sample" />
 	<haxelib name="openfl" />
 	
-	<!-- assets -->
-	<icon path="assets/openfl.svg" />
-	<assets path="assets/img" rename="img" />
-	
 	<!-- optimize output
 	<haxeflag name="-dce full" /> -->
 	
