@@ -35,7 +35,7 @@ class HxPrimMaze
 	{
 		var matrix:Array<Array<Int>> = InitIntMatrix(Columns, Rows, 1);
 		
-		var start:Point2D = new Point2D(Std.random(Columns), Std.random(Rows), null);
+		var start:Point2D = new Point2D(Std.random(Columns-2) + 1, Std.random(Rows-2) + 1, null);
 		matrix[start.y][start.x] = 0;
 		
 		var walls:Array<Point2D> = new Array<Point2D>();
@@ -62,8 +62,8 @@ class HxPrimMaze
 			var pi:Point2D = walls.splice(Std.random(walls.length), 1)[0];
 			var op = pi.GetOpposite();
 			
-			if (op.y >= 0 && op.y < Rows && 
-					op.x >= 0 && op.x < Columns)
+			if (op.y >= 1 && op.y < Rows - 1 && 
+					op.x >= 1 && op.x < Columns - 1)
 			{
 				if (matrix[pi.y][pi.x] == 1)
 				{
