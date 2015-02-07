@@ -1,12 +1,13 @@
 {
-  "name": "MAN-Haxe",
-  "url" : "https://github.com/gamepopper/MAN-Haxe",
-  "license": "MIT",
-  "tags": ["cross", "cpp", "flash", "neko", "openfl", "android", "ios", "game"]
-  "description": "A set of Maze and Noise algorithm classes that can generate 2D array or string maps.",
-  "version": "0.0.3",
-  "releasenote": "Initial release, everything is working correctly.",
-  "contributors": ["gamepopper"],
-  "dependencies": {
-  }
+"name": "MAN-Haxe",
+"url" : "https://github.com/gamepopper/MAN-Haxe",
+"license": "MIT",
+"tags": ["cross", "cpp", "flash", "neko", "openfl", "android", "ios", "game"],
+"description":
+"A set of Maze and Noise algorithm classes that can generate 2D array or string maps.",
+"version": "0.0.3",
+"releasenote":
+"Third release, First in HaxeLib.",
+"contributors": ["Gamepopper"],
+"dependencies": {}
 }
