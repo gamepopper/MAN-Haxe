@@ -73,7 +73,7 @@ class Main extends Sprite
 		SetupBitmap(midpointMap, 50, 50, midpointBitmap, 32);
 		SetupBitmap(valueMap, 450, 50, valueBitmap, 32);
 		SetupBitmap(worleyMap, 50, 450, worleyBitmap, 32);
-		SetupBitmap(primMap, 450, 450, primBitmap, 1);
+		SetupBitmap(primMap, 450, 450, primBitmap, 3);
 		
 		PlaceTextField("Midpoint Displacement", 50, 10);
 		PlaceTextField("Value Noise", 450, 10);
