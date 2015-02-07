@@ -6,6 +6,7 @@ import flash.Lib;
 import man.*;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
+import openfl.text.TextField;
 
 
 using man.HxWorleyNoise.DistanceCalculator;
@@ -62,7 +63,7 @@ class Main extends Sprite
 		// nme.Assets.getBitmapData("img/assetname.jpg");
 	}
 	
-	public function GenerateMaps()
+	function GenerateMaps()
 	{
 		midpointMap = HxMidpointDisplacement.generateIntMatrix(300, 300, 0.65, 32);
 		valueMap = HxValueNoise.generateIntMatrix(300, 300, 7, 0.65, 32);
@@ -73,9 +74,14 @@ class Main extends Sprite
 		SetupBitmap(valueMap, 450, 50, valueBitmap, 32);
 		SetupBitmap(worleyMap, 50, 450, worleyBitmap, 32);
 		SetupBitmap(primMap, 450, 450, primBitmap, 1);
+		
+		PlaceTextField("Midpoint Displacement", 50, 10);
+		PlaceTextField("Value Noise", 450, 10);
+		PlaceTextField("Worley Noise", 50, 410);
+		PlaceTextField("Prim's Algorithm", 450, 410);
 	}
 	
-	public function SetupBitmap(array:Array<Array<Int>>, x:Int, y:Int, bitmap:Bitmap, numLevels:Int)
+	function SetupBitmap(array:Array<Array<Int>>, x:Int, y:Int, bitmap:Bitmap, numLevels:Int)
 	{
 		bitmap.x = x;
 		bitmap.y = y;
@@ -87,6 +93,8 @@ class Main extends Sprite
 			for (x in 0...array[0].length)
 			{
 				var value:Int = array[y][x];
+				
+				value = value < numLevels ? value : numLevels;
 				
 				var color:Int = 255 - Std.int((value / numLevels) * 255);
 				
@@ -100,6 +108,20 @@ class Main extends Sprite
 		}
 		
 		bitmap.bitmapData = data;
+	}
+	
+	function PlaceTextField(str:String, x:Int, y:Int)
+	{
+		var text:TextField = new TextField();
+		text.text = str;
+		text.x = x;
+		text.y = y;
+		
+		 text.setTextFormat( new openfl.text.TextFormat("Arial", 16, 0x000000, true) );
+		 text.selectable = false;
+		 text.width = 800;
+		 text.height = 40;
+		 addChild(text);
 	}
 
 	public function new() 
