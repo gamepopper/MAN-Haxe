@@ -8,12 +8,23 @@ import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import openfl.text.TextField;
 
-
 using man.HxWorleyNoise.DistanceCalculator;
 
 /**
- * ...
- * @author 
+ * MAN-Haxe v0.0.3
+ * 
+ * This is the library version of the Procedural Noise Algorithms for Haxe project
+ * that was first submitted for PROCJAM 2014.
+ * 
+ * It's now renamed to MAN-Haxe, an acronym meaning Mazes And Noises.
+ * 
+ * The following resources detail the algorithms used:
+	* Value Noise: http://devmag.org.za/2009/04/25/perlin-noise/
+	* Worley Noise: https://code.google.com/p/fractalterraingeneration/wiki/Cell_Noise
+	* Midpoint Displacement: http://stackoverflow.com/questions/26877634/midpoint-displacement-2d-algorithm-producing-unusual-patterns
+	* Prim's Algorithm: http://jonathanzong.com/blog/2012/11/06/maze-generation-with-prims-algorithm
+ * 
+ * @author Tim Stoddard
  */
 
 class Main extends Sprite 
@@ -55,12 +66,6 @@ class Main extends Sprite
 		addChild(valueBitmap);
 		addChild(worleyBitmap);
 		addChild(primBitmap);
-		
-		// Stage:
-		// stage.stageWidth x stage.stageHeight @ stage.dpiScale
-		
-		// Assets:
-		// nme.Assets.getBitmapData("img/assetname.jpg");
 	}
 	
 	function GenerateMaps()
