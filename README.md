@@ -6,11 +6,11 @@ It's now renamed to MAN-Haxe, an acronym meaning **M**azes **A**nd **N**oises.
 ![alt-text](https://raw.githubusercontent.com/gamepopper/MAN-Haxe/master/sample/screenshot.png "MAN-Haxe Sample Screenshot")
 
 ## How to use the library
-Using the library should be as easy as including classes in your project. You can either clone the repo and reference them, copy the folder into your project or reference them from haxelib (TBC).
+Using the library should be as easy as including classes in your project. You can either clone the repo and reference them, copy the folder into your project or reference them from [haxelib](http://lib.haxe.org/p/MAN-Haxe).
 
 Each class has a *generateIntMatrix*, *generateMatrixString* and a *ConvertMatrixToString* static function, and Noise classes should also have a *generateFloatMatrix* function as well.
 
-The Generate Int/Float Matrix functions will return a 2D array (e.g. Array<Array<Int>>) of numbers, floats will be between *0* and *1* while int will be between *0* and *NumOctaves-1*.
+The Generate Int/Float Matrix functions will return a 2D array (e.g. Array*<*Array*<*Int*>>*) of numbers, floats will be between *0* and *1* while int will be between *0* and *NumOctaves-1*.
 
 The Generate String functions will return a multi-line string separated by commas. The values will be in the same format as the Generate Int, with exceptions to the Maze class which have the specific values:
 * 0 - Empty Spaces
