@@ -3,7 +3,7 @@ This is the library version of the Procedural Noise Algorithms for Haxe project 
 
 It's now renamed to MAN-Haxe, an acronym meaning **M**azes **A**nd **N**oises.
 
-Try out the sample here: ![alt-text](https://dl.dropboxusercontent.com/u/78698224/MANHaxe.swf "Flash Demo")
+Try out the sample here: ![Demo](https://dl.dropboxusercontent.com/u/78698224/MANHaxe.swf "Flash Demo")
 
 ![alt-text](https://raw.githubusercontent.com/gamepopper/MAN-Haxe/master/sample/screenshot.png "MAN-Haxe Sample Screenshot")
 
