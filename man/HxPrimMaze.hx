@@ -1,6 +1,6 @@
 package man ;
 
-class Point2D
+private class Point2D
 {
 	public var x:Int;
 	public var y:Int;
@@ -35,7 +35,7 @@ class HxPrimMaze
 	{
 		var matrix:Array<Array<Int>> = InitIntMatrix(Columns, Rows, 1);
 		
-		var start:Point2D = new Point2D(Std.random(Columns-2) + 1, Std.random(Rows-2) + 1, null);
+		var start:Point2D = new Point2D(Std.random(Columns), Std.random(Rows), null);
 		matrix[start.y][start.x] = 0;
 		
 		var walls:Array<Point2D> = new Array<Point2D>();
@@ -94,7 +94,46 @@ class HxPrimMaze
 			}
 		}
 		
-		matrix[start.y][start.x] = 2;
+		//This changes the starting position to always start at a dead end
+		//far away from the last position.
+		start.y = 0;
+		start.x = Columns - last.x;
+		
+		while (matrix[start.y][start.x] != 2)
+		{
+			var count:Int = 0;
+			if (matrix[start.y][start.x] == 0)
+			{
+				for (j in -1...2)
+				{
+					for (i in -1...2)
+					{
+						if (!(i == 0 && j == 0) && !(i != 0 && j != 0)) 
+						{
+							if (matrix[start.y + j][start.x + i] == 0)
+							{
+								count++;
+							}
+						}
+					}
+				}
+			}
+			
+			if (count == 1) 
+			{	
+				matrix[start.y][start.x] = 2;
+			}
+			else 
+			{
+				start.y++;
+				if (start.y == Rows)
+				{
+					start.y = 0;
+					start.x = start.x == 0 ? Columns - 1 : start.x - 1;
+				}
+			}
+		}
+		
 		matrix[last.y][last.x] = 3;
 		
 		return matrix;
