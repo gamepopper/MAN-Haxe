@@ -13,6 +13,18 @@ enum DistanceCalculator
 	Minkowski;
 }
 
+private class Point
+{
+	public var x:Float = 0;
+	public var y:Float = 0;
+	
+	public function new(x:Float, y:Float)
+	{
+		this.x = x;
+		this.y = y;
+	}
+}
+
 class HxWorleyNoise
 {
 	/**
@@ -262,16 +274,4 @@ class HxWorleyNoise
 		return 1;
 	}
 	
-}
-
-class Point
-{
-	public var x:Float = 0;
-	public var y:Float = 0;
-	
-	public function new(x:Float, y:Float)
-	{
-		this.x = x;
-		this.y = y;
-	}
 }
