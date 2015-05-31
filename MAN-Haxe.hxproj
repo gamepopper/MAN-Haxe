@@ -16,20 +16,19 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="C:\HaxeToolkit\haxe\lib\openfl\2,2,4" />
-    <class path="C:\HaxeToolkit\haxe\lib\lime\2,0,6" />
+    <class path="C:\HaxeToolkit\haxe\lib\openfl\git" />
+    <class path="C:\HaxeToolkit\haxe\lib\lime\git" />
     <class path="sample" />
-    <class path="C:\HaxeToolkit\haxe\lib\lime\2,0,6\legacy" />
-    <class path="bin\windows\cpp\haxe" />
+    <class path="bin\flash\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="openfl=2.2.4&#xA;lime=2.0.6&#xA;tools=2.0.6&#xA;lime-legacy&#xA;no-compilation&#xA;native&#xA;lime-native&#xA;openfl-native&#xA;windows&#xA;desktop" />
+    <option directives="openfl=3.0.6&#xA;lime=2.4.1&#xA;openfl-next&#xA;tools=2.4.1&#xA;no-compilation&#xA;openfl-flash&#xA;web" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="--remap flash:openfl&#xA;#--macro keep(&quot;Main&quot;)" />
+    <option additional="-swf-version 11.2" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

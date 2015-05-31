@@ -161,6 +161,8 @@ class HxValueNoise
 	{
 		var matrix:Array<Array<Float>> = InitFloatMatrix(Columns, Rows);
 		
+		
+		
 		for (y in 0...Rows)
 		{
 			for (x in 0...Columns) 

@@ -5,9 +5,9 @@
 "tags": ["cross", "cpp", "flash", "neko", "openfl", "android", "ios", "game"],
 "description":
 "A set of Maze and Noise algorithm classes that can generate 2D array or string maps.",
-"version": "0.0.3",
+"version": "0.0.4",
 "releasenote":
-"Third release, First in HaxeLib.",
+"Fourth Release, Depth-First Search.",
 "contributors": ["Gamepopper"],
 "dependencies": {}
 }
